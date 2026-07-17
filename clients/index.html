@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LawDesk Client Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>⚖️ LawDesk</h2>
+      <p>Client management POC for lawyer workflows.</p>
+      <nav>
+        <button data-target="dashboard" class="active">Dashboard</button>
+        <button data-target="clients">Clients</button>
+        <button data-target="cases">Cases</button>
+        <button data-target="appointments">Appointments</button>
+        <button data-target="hearings">Hearings</button>
+        <button data-target="files">Files</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section class="page-header">
+        <div>
+          <h1>Clients Dashboard</h1>
+          <p>Monitor clients, open cases, appointments, hearings, and documents in one place.</p>
+        </div>
+        <input id="search" class="search-input" type="text" placeholder="Search table records..." aria-label="Search records" />
+      </section>
+
+      <section class="cards">
+        <article class="card">
+          <p>Total Clients</p>
+          <h3 id="clientCount">0</h3>
+        </article>
+        <article class="card">
+          <p>Active Cases</p>
+          <h3 id="caseCount">0</h3>
+        </article>
+        <article class="card">
+          <p>Today's Appointments</p>
+          <h3 id="appointmentCount">0</h3>
+        </article>
+        <article class="card">
+          <p>Upcoming Hearings</p>
+          <h3 id="hearingCount">0</h3>
+        </article>
+      </section>
+
+      <section id="dashboard" class="section active">
+        <h2>Overview</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Section</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Clients</td>
+                <td>Manage client records, contact info, and status.</td>
+              </tr>
+              <tr>
+                <td>Cases</td>
+                <td>Track case status and associated clients.</td>
+              </tr>
+              <tr>
+                <td>Appointments</td>
+                <td>Review upcoming meetings and follow-ups.</td>
+              </tr>
+              <tr>
+                <td>Hearings</td>
+                <td>Keep court dates and venues organized.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="clients" class="section">
+        <h2>Clients</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Last Meeting</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="clientTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="cases" class="section">
+        <h2>Cases</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Case Title</th>
+                <th>Client</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="caseTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="appointments" class="section">
+        <h2>Appointments</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Client</th>
+                <th>Date</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="hearings" class="section">
+        <h2>Hearings</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Case</th>
+                <th>Date</th>
+                <th>Court</th>
+              </tr>
+            </thead>
+            <tbody id="hearingTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="files" class="section">
+        <h2>Files</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Document</th>
+                <th>Case</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="fileTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
