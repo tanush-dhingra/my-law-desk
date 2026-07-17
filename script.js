@@ -1,199 +1,129 @@
-const clients = [
-{
-name:"Amit Sharma",
-phone:"9876543210",
-status:"Active"
-},
-{
-name:"Priya Verma",
-phone:"9123456780",
-status:"Active"
-},
-{
-name:"Rahul Singh",
-phone:"9988776655",
-status:"Closed"
-}
-];
+const navButtons = document.querySelectorAll('.sidebar button');
+const searchInput = document.getElementById('search');
 
-const cases = [
-{
-title:"Property Dispute",
-client:"Amit Sharma",
-status:"Ongoing"
-},
-{
-title:"Cheque Bounce",
-client:"Rahul Singh",
-status:"Closed"
-},
-{
-title:"Divorce Petition",
-client:"Priya Verma",
-status:"Pending"
-}
-];
-
-const appointments = [
-{
-client:"Amit Sharma",
-date:"20 Jul 2026",
-purpose:"Document Review"
-},
-{
-client:"Priya Verma",
-date:"21 Jul 2026",
-purpose:"Legal Advice"
-}
-];
-
-const hearings = [
-{
-case:"Property Dispute",
-date:"25 Jul 2026",
-court:"Delhi High Court"
-},
-{
-case:"Divorce Petition",
-date:"28 Jul 2026",
-court:"Family Court"
-}
-];
-
-const files = [
-{
-name:"Sale Deed.pdf",
-case:"Property Dispute",
-type:"Evidence"
-},
-{
-name:"Marriage Certificate.pdf",
-case:"Divorce Petition",
-type:"Proof"
-}
-];
-
-function badge(status){
-
-if(status==="Active")
-return `<span class="status green">${status}</span>`;
-
-if(status==="Closed")
-return `<span class="status red">${status}</span>`;
-
-return `<span class="status orange">${status}</span>`;
-
+function badge(status) {
+  if (status === 'Active') return `<span class="status green">${status}</span>`;
+  if (status === 'Closed') return `<span class="status red">${status}</span>`;
+  return `<span class="status orange">${status}</span>`;
 }
 
-function load(){
+function setActiveSection(sectionId) {
+  document.querySelectorAll('.section').forEach((section) => section.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
 
-clientCount.innerText=clients.length;
-
-caseCount.innerText=cases.length;
-
-appointmentCount.innerText=appointments.length;
-
-hearingCount.innerText=hearings.length;
-
-clientTable.innerHTML=clients.map(c=>`
-
-<tr>
-
-<td>${c.name}</td>
-
-<td>${c.phone}</td>
-
-<td>${badge(c.status)}</td>
-
-</tr>
-
-`).join("");
-
-caseTable.innerHTML=cases.map(c=>`
-
-<tr>
-
-<td>${c.title}</td>
-
-<td>${c.client}</td>
-
-<td>${badge(c.status)}</td>
-
-</tr>
-
-`).join("");
-
-appointmentTable.innerHTML=appointments.map(a=>`
-
-<tr>
-
-<td>${a.client}</td>
-
-<td>${a.date}</td>
-
-<td>${a.purpose}</td>
-
-</tr>
-
-`).join("");
-
-hearingTable.innerHTML=hearings.map(h=>`
-
-<tr>
-
-<td>${h.case}</td>
-
-<td>${h.date}</td>
-
-<td>${h.court}</td>
-
-</tr>
-
-`).join("");
-
-fileTable.innerHTML=files.map(f=>`
-
-<tr>
-
-<td>${f.name}</td>
-
-<td>${f.case}</td>
-
-<td>${f.type}</td>
-
-</tr>
-
-`).join("");
-
+  navButtons.forEach((button) => {
+    button.classList.toggle('active', button.dataset.target === sectionId);
+  });
 }
 
-function show(id){
-
-document.querySelectorAll(".section").forEach(s=>{
-
-s.classList.remove("active");
-
-});
-
-document.getElementById(id).classList.add("active");
-
+function renderSummaryCards() {
+  document.getElementById('clientCount').textContent = clients.length;
+  document.getElementById('caseCount').textContent = cases.length;
+  document.getElementById('appointmentCount').textContent = appointments.length;
+  document.getElementById('hearingCount').textContent = hearings.length;
 }
 
-function searchData(){
+function renderClientTable() {
+  const html = clients
+    .map(
+      (client) => `
+        <tr>
+          <td>${client.name}</td>
+          <td>${client.phone}</td>
+          <td>${client.email}</td>
+          <td>${client.lastMeeting}</td>
+          <td>${badge(client.status)}</td>
+        </tr>`
+    )
+    .join('');
 
-const value=document
-.getElementById("search")
-.value
-.toLowerCase();
-
-document.querySelectorAll("tbody tr").forEach(row=>{
-
-row.style.display=row.innerText.toLowerCase().includes(value)
-?""
-:"none";
-
-});
-
+  document.getElementById('clientTable').innerHTML = html;
 }
 
-load();
+function renderCaseTable() {
+  const html = cases
+    .map(
+      (item) => `
+        <tr>
+          <td>${item.title}</td>
+          <td>${item.client}</td>
+          <td>${badge(item.status)}</td>
+        </tr>`
+    )
+    .join('');
+
+  document.getElementById('caseTable').innerHTML = html;
+}
+
+function renderAppointmentTable() {
+  const html = appointments
+    .map(
+      (item) => `
+        <tr>
+          <td>${item.client}</td>
+          <td>${item.date}</td>
+          <td>${item.purpose}</td>
+        </tr>`
+    )
+    .join('');
+
+  document.getElementById('appointmentTable').innerHTML = html;
+}
+
+function renderHearingTable() {
+  const html = hearings
+    .map(
+      (item) => `
+        <tr>
+          <td>${item.caseTitle}</td>
+          <td>${item.date}</td>
+          <td>${item.court}</td>
+        </tr>`
+    )
+    .join('');
+
+  document.getElementById('hearingTable').innerHTML = html;
+}
+
+function renderFileTable() {
+  const html = files
+    .map(
+      (item) => `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.caseTitle}</td>
+          <td>${item.type}</td>
+        </tr>`
+    )
+    .join('');
+
+  document.getElementById('fileTable').innerHTML = html;
+}
+
+function searchData() {
+  const query = searchInput.value.toLowerCase();
+  document.querySelectorAll('tbody tr').forEach((row) => {
+    row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
+  });
+}
+
+function bindEvents() {
+  navButtons.forEach((button) => {
+    button.addEventListener('click', () => setActiveSection(button.dataset.target));
+  });
+
+  searchInput.addEventListener('input', searchData);
+}
+
+function init() {
+  renderSummaryCards();
+  renderClientTable();
+  renderCaseTable();
+  renderAppointmentTable();
+  renderHearingTable();
+  renderFileTable();
+  bindEvents();
+  setActiveSection('dashboard');
+}
+
+init();
